@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'main' %}
+
+<!-- main start-->
+<div class="container mt-5">
+    <h5 class="bg-primary text-white p-2">Shopping Cart</h5>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in data %}
+            <tr>
+                <td>{{x.pid.name}}</td>
+                <td>{{x.pid.price}}</td>
+                <td>
+                    
+                    <input type="number" value="{{x.qty}}" style="width: 60px; text-align: center;" />
+                   
+                    
+                    
+                </td>
+                 
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-right">
+        <strong>Total: Rs.{{total}}</strong>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            {% for x in data %}
+            {% if forloop.counter == 1 %}
+            <h5 class="bg-primary text-white p-2">Customer details</h5>
+            <p><strong>Name: </strong>{{x.uid.username}}</p>
+            <p><strong>Email: </strong>{{x.uid.email}}</p>
+            {% endif %}
+            {% endfor %}
+            <a href="/makepayment"><button class="btn btn-primary">make payment</button></a>
+</div>
+
+{% endblock 'main' %}

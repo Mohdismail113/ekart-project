@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'asset/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'asset/css/style.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- link for bootstrap icon-->
+  <style>
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+      color: white; /* Set text color to white */
+    }
+
+    .sidenav a,
+    .sidenav p,
+    .sidenav h5,
+    .sidenav form label {
+      color: white; /* Ensure all text elements are white */
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidenav a:hover,
+    .sidenav p:hover {
+      color: #f1f1f1;
+    }
+
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    @media screen and (max-height: 450px) {
+      .sidenav {
+        padding-top: 15px;
+      }
+
+      .sidenav a {
+        font-size: 18px;
+      }
+    }
+
+    .navbar-nav .nav-item .nav-link {
+      padding: 15px;
+      font-size: 18px; /* Increase font size */
+    }
+
+    .navbar-brand {
+      font-size: 24px; /* Increase brand font size */
+    }
+
+    .navbar-toggler {
+      border: none;
+    }
+
+    .navbar-custom {
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .navbar-nav {
+      flex-direction: row;
+      justify-content: space-around;
+      width: 100%;
+    }
+  </style>
+  <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-custom">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/">E-KART</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/about">About us</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/viewcart">Cart</a>
+                </li>
+                {% if user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/logout">Logout</a>
+                                </li>
+                                {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/register">Register</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/login">Login</a>
+                                </li>
+                                {% endif %}
+                <li>
+                  <div id="mySidenav" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <h5>Filter by category</h5>
+                    <hr>
+                    <p><a href="/" class="anchor">All</a></p>
+                    <p><a href="/catfilter/1" class="anchor">By mobile</a></p>
+                    <p><a href="/catfilter/2" class="anchor">By Shoes</a></p>
+                    <p><a href="/catfilter/3" class="anchor">By Clothes</a></p>
+                    <h5>Filter by Price Range</h5>
+                    <hr>
+                    <form action="/range">
+                      <div class="mb-3">
+                        <label for="input1" class="form-label">Min Value:</label>
+                        <input type="number" name="min" class="form-control" id="input1" placeholder="Minimum Value">
+                      </div><!-- minimum value-->
+                      <div class="mb-3">
+                        <label for="input2" class="form-label">Max Value:</label>
+                        <input type="number" name="max" class="form-control" id="input2" placeholder="Maximum Value">
+                      </div><!-- max value-->
+                      <div class="mb-3">
+                        <input type="submit" class="btn btn-danger" value="Submit">
+                      </div>
+                    </form>
+                    <h5>Sort by Price</h5>
+                    <hr>
+                    <p><a href="/sort/0" class="anchor">Low to High</a></p>
+                    <p><a href="/sort/1" class="anchor">High to Low</a></p>
+                  </div><!-- filter end-->
+                  <span style="font-size:25px;cursor:pointer" class="nav-item" onclick="openNav()">&#9776;</span>
+                </li>
+              </ul>
+              <form class="d-flex" role="search" action="/search" method="get">
+                <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary" type="submit">Search</button>
+            </form>
+            </form>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!-- templates/search_results.html -->
+
+{% extends 'base.html' %}
+
+{% block 'main' %}
+<div class="container">
+    <h2>Search Results</h2>
+    {% if query %}
+        <p>Results for: "{{ query }}"</p>
+    {% else %}
+        <p>No search term entered.</p>
+    {% endif %}
+    <div class="row">
+        {% if products %}
+            {% for product in products %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="{{ product.pimage.url }}" class="card-img-top" alt="{{ product.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">Price: {{ product.price }}</p>
+                            <a href="/pdetails/{{ product.id }}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No products found matching your query.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock 'main' %}
